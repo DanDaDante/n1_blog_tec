@@ -17,7 +17,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Inicializar SQLAlchemy
 db = SQLAlchemy(app)
 
+#Importar modelos para que SQLAlchemy los reconozca
+from app.models import Post
+
+#Importar y registrar los Blueprints
+from app.routes.post import posts_bp
+
+#Crear las tablas si no existen
+with app.app_context():
+    db.create_all()
+
+app.register_blueprint(posts_bp, url_prefix='/posts')
+
 #Ruta principal: home
 @app.route('/')
 def index():
-    return 'Hola mundo'
+    #return 'Hola mundo'
+    return render_template('index.html')
