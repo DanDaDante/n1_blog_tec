@@ -11,6 +11,7 @@ def listar_categories():
     categories = Category.query.all()
     return render_template('categories/listar_categories.html', categories=categories)
 
+#Crear las categorias
 @categories_bp.route('/new', methods=['GET','POST'])
 def add_category():
     if request.method == 'POST':
