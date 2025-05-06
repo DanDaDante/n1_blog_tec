@@ -5,6 +5,7 @@ from app.models import Category
 
 categories_bp = Blueprint('categories', __name__)
 
+#Listar las categorias
 @categories_bp.route('/')
 def listar_categories():
     categories = Category.query.all()
