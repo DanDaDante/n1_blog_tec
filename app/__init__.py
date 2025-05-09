@@ -21,6 +21,10 @@ db = SQLAlchemy(app)
 from app.models import Post
 from app.models import Category
 
+# Crear las tablas si no existen
+with app.app_context():
+    db.create_all()
+
 #Importar y registrar los Blueprints
 from app.routes.post import posts_bp
 from app.routes.category import categories_bp

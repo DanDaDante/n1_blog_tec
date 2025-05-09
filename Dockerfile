@@ -1,11 +1,9 @@
-FROM python:3.13.2-alpine3.21
-RUN addgroup react && adduser -S -G react react
-USER react
+FROM python:3.13.2-alpine3.21				
+RUN addgroup flask && adduser -S -G flask flask
 WORKDIR /app/
-RUN mkdir datos
-COPY --chown=react package*.json .
-RUN npm install
-COPY --chown=react . .
-ENV API=https:api.tecnm.mx/alumnos
-EXPOSE 5173
-CMD ["npm", "run", "dev"]
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+USER flask
+COPY --chown=flask . .						
+EXPOSE 5000	
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
